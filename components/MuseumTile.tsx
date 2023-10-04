@@ -1,4 +1,4 @@
-import {View, Text, ActivityIndicator, Button} from "react-native";
+import {View, Text, ActivityIndicator} from "react-native";
 import getMuseum from "../api/getMuseum";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
@@ -12,7 +12,16 @@ export default function MuseumTile(props: MuseumTileProps) {
 
     const museumAction = getMuseum(props.id);
     return (
-        <View style={{flexDirection: "row", justifyContent: "space-between", padding: 10}}>
+
+        <View style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems:"center",
+            padding: 10,
+            backgroundColor:"white",
+            borderBottomColor:"Gainsboro",
+            borderBottomWidth:0.5,
+        }}>
             <Text>{`${props.id}. `}</Text>
             {museumAction.inProgress ?
                 <ActivityIndicator size="small"/> :
