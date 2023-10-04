@@ -19,7 +19,7 @@ export default function MuseumTile(props: MuseumTileProps) {
             alignItems:"center",
             padding: 10,
             backgroundColor:"white",
-            borderBottomColor:"Gainsboro",
+            borderBottomColor:"#DCDCDC",
             borderBottomWidth:0.5,
         }}>
             <Text>{`${props.id}. `}</Text>
