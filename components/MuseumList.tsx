@@ -16,10 +16,6 @@ export default function MuseumList(props: MuseumListProps){
         idsAction.retry();
     }, [props.search]);
 
-    useEffect(() => {
-        console.log(favouriteContext.favourites);
-    }, [favouriteContext.favourites]);
-
     const renderItem = ({item}: { item: number }) => {
 
         return (
