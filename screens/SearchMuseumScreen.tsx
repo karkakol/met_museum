@@ -7,8 +7,8 @@ export default function SearchMuseumScreen() {
     const [search, setSearch] = useState('');
 
     return (
-        <View>
-            <View style={styles.inputWrapper}>
+        <View style={styles.inputWrapper}>
+            <View style={styles.inputContainer}>
                 <TextInput
                     onChangeText={setSearch}
                     value={search}
@@ -24,10 +24,18 @@ export default function SearchMuseumScreen() {
 
 const styles = StyleSheet.create({
     inputWrapper: {
+        backgroundColor: "white",
+        paddingVertical: 4,
+    },
+    inputContainer: {
         display: 'flex',
         flexDirection: 'row',
-        backgroundColor: 'white',
-        padding: 10,
+        backgroundColor: '#ededed',
+        paddingVertical: 4,
+        paddingLeft: 12,
+        paddingRight: 8,
+        borderRadius: 8,
+        marginHorizontal: 12,
         elevation: 2,
     },
     input: {

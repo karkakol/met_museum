@@ -10,5 +10,7 @@ type Museum = {
     artistDisplayBio: string;
     creditLine: string;
     repository: string;
+    primaryImage: string;
+    primaryImageSmall: string,
 }
 export default Museum
