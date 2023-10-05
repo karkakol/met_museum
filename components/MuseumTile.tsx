@@ -17,7 +17,7 @@ export default function MuseumTile(props: MuseumTileProps) {
             <Text>{`${props.id}. `}</Text>
             {museumAction.inProgress ?
                 <ActivityIndicator size="small"/> :
-                <Text>{museumAction.data?.title}</Text>
+                <Text style={styles.label}>{museumAction.data?.title}</Text>
             }
             <FontAwesome.Button name={props.selected ? "heart" : "heart-o"} color="red" backgroundColor="transparent"
                                 underlayColor="lightgrey"
@@ -38,4 +38,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         margin: 1,
     },
+    label:{
+        flexShrink: 1,
+        paddingHorizontal: 12,
+    }
 });
