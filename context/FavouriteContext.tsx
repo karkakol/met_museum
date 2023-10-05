@@ -2,16 +2,20 @@ import {createContext, useEffect, useState} from "react";
 import {getFavourites, toggleFavourite} from "../async_storage/LocalStorage";
 
 interface FavouriteContextModel {
-    favourites: Array<number>;
-
-    toggle(id: number): void;
-
     loading: boolean;
+    favourites: Array<number>;
+    toggle(id: number): void;
+    selected(id: number): boolean,
 }
 
 export const FavouritesContext = createContext<FavouriteContextModel>({
-    loading: true, favourites: [], toggle(id: number) {
-    }
+    loading: true,
+    favourites: [],
+    toggle(id: number) {
+    },
+    selected(id: number) {
+        return true
+    },
 });
 
 export const FavouritesProvider = (props: any) => {
@@ -32,9 +36,12 @@ export const FavouritesProvider = (props: any) => {
         toggleFavourite(id).then(setFavourites).catch(console.log);
     }
 
+    const selected = (id: number): boolean => favourites.includes(id);
+
 
     return (
-        <FavouritesContext.Provider value={{favourites: favourites, loading: loading, toggle: toggle}}>
+        <FavouritesContext.Provider
+            value={{favourites: favourites, loading: loading, toggle: toggle, selected: selected}}>
             {props.children}
         </FavouritesContext.Provider>
     )

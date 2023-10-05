@@ -1,9 +1,7 @@
-import {FlatList, Text, TouchableOpacity, View} from "react-native";
+import {ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import getAllIds from "../api/getAllIds";
 import MuseumTile from "./MuseumTile";
-import {useContext, useEffect, useState} from "react";
-import {getFavourites, toggleFavourite} from "../async_storage/LocalStorage";
-import {useIsFocused} from "@react-navigation/native";
+import {useContext, useEffect} from "react";
 import {FavouritesContext} from "../context/FavouriteContext";
 
 interface MuseumListProps{
@@ -18,18 +16,22 @@ export default function MuseumList(props: MuseumListProps){
         idsAction.retry();
     }, [props.search]);
 
+    useEffect(() => {
+        console.log(favouriteContext.favourites);
+    }, [favouriteContext.favourites]);
+
     const renderItem = ({item}: { item: number }) => {
 
         return (
             <TouchableOpacity>
-                <MuseumTile id={item} onTap={() =>favouriteContext.toggle(item)} selected={favouriteContext.favourites.includes(item) ?? false}/>
+                <MuseumTile id={item} onTap={() =>favouriteContext.toggle(item)} selected={favouriteContext.selected(item) ?? false}/>
             </TouchableOpacity>
         );
     };
     return (
-        <View>
+        <View >
             {
-                idsAction.inProgress ? <Text>Loading</Text> : <FlatList<number>
+                idsAction.inProgress ? <ActivityIndicator style={styles.wrapper} size="large"/>  : <FlatList<number>
                     data={idsAction.data}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.toString()}
@@ -39,3 +41,11 @@ export default function MuseumList(props: MuseumListProps){
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    wrapper: {
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+    },
+});

@@ -19,8 +19,10 @@ export default function MuseumTile(props: MuseumTileProps) {
                 <ActivityIndicator size="small"/> :
                 <Text>{museumAction.data?.title}</Text>
             }
-            <FontAwesome.Button name={props.selected ? "heart" : "heart-o"} color="red" backgroundColor="transparent" underlayColor="lightgrey"
-                                onPress={() => props.onTap()}/>
+            <FontAwesome.Button name={props.selected ? "heart" : "heart-o"} color="red" backgroundColor="transparent"
+                                underlayColor="lightgrey"
+                                onPress={() => props.onTap()}
+            />
 
         </View>
     )
@@ -30,9 +32,9 @@ const styles = StyleSheet.create({
     tile: {
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems:"center",
+        alignItems: "center",
         padding: 10,
-        backgroundColor:"white",
+        backgroundColor: "white",
         display: 'flex',
         margin: 1,
     },
