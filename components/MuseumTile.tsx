@@ -5,6 +5,7 @@ import {useNavigation} from "@react-navigation/native";
 import {MainStackNavigation} from "../App";
 import {Image} from 'expo-image';
 import Animated from 'react-native-reanimated';
+import {MOCK_IMAGE} from "../constans";
 
 interface MuseumTileProps {
     id: number;
@@ -28,7 +29,7 @@ export default function MuseumTile(props: MuseumTileProps) {
             <View style={styles.tile}>
 
                 <Animated.View sharedTransitionTag={museumAction.data?.objectID.toString()}>
-                    <Image source={museumAction.data?.primaryImageSmall} style={styles.image} contentFit="cover"/>
+                    <Image source={museumAction.data?.primaryImageSmall ?? MOCK_IMAGE} style={styles.image} contentFit="cover"/>
                 </Animated.View>
                 {museumAction.inProgress ?
                     <ActivityIndicator size="small"/> :
