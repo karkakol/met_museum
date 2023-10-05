@@ -2,15 +2,17 @@ import {ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View} f
 import getAllIds from "../api/getAllIds";
 import MuseumTile from "./MuseumTile";
 import {useContext, useEffect} from "react";
-import {FavouritesContext} from "../context/FavouriteContext";
+import {FavouritesContext} from "../providers/FavouritesProvider";
 
-interface MuseumListProps{
-    search: string|undefined;
+
+
+interface MuseumListProps {
+    search: string | undefined;
 }
-export default function MuseumList(props: MuseumListProps){
 
+export default function MuseumList(props: MuseumListProps) {
     const favouriteContext = useContext(FavouritesContext)
-    const idsAction = getAllIds(props?.search??"");
+    const idsAction = getAllIds(props?.search ?? "");
 
     useEffect(() => {
         idsAction.retry();
@@ -19,15 +21,16 @@ export default function MuseumList(props: MuseumListProps){
     const renderItem = ({item}: { item: number }) => {
 
         return (
-            <TouchableOpacity>
-                <MuseumTile id={item} onTap={() =>favouriteContext.toggle(item)} selected={favouriteContext.selected(item) ?? false}/>
-            </TouchableOpacity>
+
+            <MuseumTile id={item} onFavouriteTap={() => favouriteContext.toggle(item)}
+                        selected={favouriteContext.selected(item) ?? false}/>
+
         );
     };
     return (
-        <View >
+        <View>
             {
-                idsAction.inProgress ? <ActivityIndicator style={styles.wrapper} size="large"/>  : <FlatList<number>
+                idsAction.inProgress ? <ActivityIndicator style={styles.wrapper} size="large"/> : <FlatList<number>
                     data={idsAction.data}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.toString()}

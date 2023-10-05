@@ -1,51 +1,37 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {BottomTabNavigationOptions, createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import AllMuseumsScreen from "./screens/AllMuseumsScreen";
-import SearchMuseumScreen from "./screens/SearchMuseumScreen";
-import FavouriteMuseumsScreen from "./screens/FavouriteMuseumsScreen";
-import React from "react";
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { Fontisto } from '@expo/vector-icons';
-import {FavouritesProvider} from "./context/FavouriteContext";
+import {NavigationContainer, NavigationProp} from '@react-navigation/native';
+import {FavouritesProvider} from "./providers/FavouritesProvider";
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import HomeScreen from "./screens/HomeScreen";
+import DetailedMuseumScreen from "./screens/DetailedMuseumScreen";
+import Museum from "./model/Museum";
 
-const Tab = createBottomTabNavigator();
+export type MainRootStackParamList = {
+    "Home": undefined,
+    "DetailedMuseum": {museum: Museum}
+}
+
+export type MainStackNavigation = NavigationProp<MainRootStackParamList>;
+
+const Stack = createNativeStackNavigator<MainRootStackParamList>();
+
 export default function App() {
     return (
+        <FavouritesProvider>
+            <MainNavigator/>
+        </FavouritesProvider>
+    );
+}
+
+function MainNavigator() {
+    return (
         <NavigationContainer>
-            <MyTabs/>
+            <Stack.Navigator>
+                <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
+                <Stack.Screen name="DetailedMuseum" component={DetailedMuseumScreen} options={({ route }) => ({ title: route.params.museum.title })}/>
+            </Stack.Navigator>
         </NavigationContainer>
     );
 }
 
-function MyTabs() {
-    return (
-        <FavouritesProvider>
-            <Tab.Navigator>
-                <Tab.Screen name="All" component={AllMuseumsScreen} options={homeIcon()}/>
-                <Tab.Screen name="Search" component={SearchMuseumScreen} options={searchIcon()}/>
-                <Tab.Screen name="Favourite" component={FavouriteMuseumsScreen} options={favouriteIcon()}/>
-            </Tab.Navigator>
-        </FavouritesProvider>
 
 
-    );
-}
-
-
-const homeIcon = () :  BottomTabNavigationOptions=>{
-    return {
-        tabBarIcon: props => <Ionicons name="home" size={20} color={props.color} />
-    }
-}
-
-const searchIcon = () :  BottomTabNavigationOptions=>{
-    return {
-        tabBarIcon: props => <Ionicons name="search" size={20} color={props.color} />
-    }
-}
-
-const favouriteIcon = () :  BottomTabNavigationOptions=>{
-    return {
-        tabBarIcon: props => <Fontisto name="favorite" size={20} color={props.color} />
-    }
-}

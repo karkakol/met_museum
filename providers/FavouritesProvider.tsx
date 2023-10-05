@@ -36,8 +36,7 @@ export const FavouritesProvider = (props: any) => {
         toggleFavourite(id).then(setFavourites).catch(console.log);
     }
 
-    const selected = (id: number): boolean => favourites.includes(id);
-
+    const selected = (id: number): boolean => favourites?.includes(id) ?? false;
 
     return (
         <FavouritesContext.Provider

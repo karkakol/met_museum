@@ -1,7 +1,7 @@
 import {FlatList, TouchableOpacity, View} from "react-native";
 import MuseumTile from "./MuseumTile";
 import {useContext} from "react";
-import {FavouritesContext} from "../context/FavouriteContext";
+import {FavouritesContext} from "../providers/FavouritesProvider";
 
 
 export default function FavouriteList() {
@@ -10,7 +10,7 @@ export default function FavouriteList() {
     const renderItem = ({item}: { item: number }) => {
         return (
             <TouchableOpacity>
-                <MuseumTile id={item} onTap={() => favouriteContext.toggle(item)} selected={favouriteContext.favourites.includes(item) ?? false}/>
+                <MuseumTile id={item} onFavouriteTap={() => favouriteContext.toggle(item)} selected={favouriteContext.favourites.includes(item) ?? false}/>
             </TouchableOpacity>
         );
     };
