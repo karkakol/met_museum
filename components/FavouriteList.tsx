@@ -1,34 +1,23 @@
 import {FlatList, TouchableOpacity, View} from "react-native";
 import MuseumTile from "./MuseumTile";
-import {useEffect, useState} from "react";
-import {getFavourites, toggle} from "../async_storage/LocalStorage";
-import {useIsFocused} from "@react-navigation/native";
+import {useContext} from "react";
+import {FavouritesContext} from "../context/FavouriteContext";
 
 
 export default function FavouriteList() {
-    const [favIds, setFavIds] = useState<Array<number>>()
-
-    useEffect(() => {
-        getFavourites().then(setFavIds)
-    }, [useIsFocused()]);
-
-
-    function onTileTap(value: number) {
-        toggle(value).then((ids) => setFavIds(ids))
-    }
+    const favouriteContext = useContext(FavouritesContext)
 
     const renderItem = ({item}: { item: number }) => {
-
         return (
             <TouchableOpacity>
-                <MuseumTile id={item} onTap={() => onTileTap(item)} selected={favIds?.includes(item) ?? false}/>
+                <MuseumTile id={item} onTap={() => favouriteContext.toggle(item)} selected={favouriteContext.favourites.includes(item) ?? false}/>
             </TouchableOpacity>
         );
     };
     return (
         <View>
             <FlatList<number>
-                data={favIds}
+                data={favouriteContext.favourites}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.toString()}
             />

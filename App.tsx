@@ -6,6 +6,7 @@ import FavouriteMuseumsScreen from "./screens/FavouriteMuseumsScreen";
 import React from "react";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Fontisto } from '@expo/vector-icons';
+import {FavouritesProvider} from "./context/FavouriteContext";
 
 const Tab = createBottomTabNavigator();
 export default function App() {
@@ -18,12 +19,14 @@ export default function App() {
 
 function MyTabs() {
     return (
+        <FavouritesProvider>
+            <Tab.Navigator>
+                <Tab.Screen name="All" component={AllMuseumsScreen} options={homeIcon()}/>
+                <Tab.Screen name="Search" component={SearchMuseumScreen} options={searchIcon()}/>
+                <Tab.Screen name="Favourite" component={FavouriteMuseumsScreen} options={favouriteIcon()}/>
+            </Tab.Navigator>
+        </FavouritesProvider>
 
-        <Tab.Navigator>
-            <Tab.Screen name="All" component={AllMuseumsScreen} options={homeIcon()}/>
-            <Tab.Screen name="Search" component={SearchMuseumScreen} options={searchIcon()}/>
-            <Tab.Screen name="Favourite" component={FavouriteMuseumsScreen} options={favouriteIcon()}/>
-        </Tab.Navigator>
 
     );
 }
