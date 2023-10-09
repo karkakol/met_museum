@@ -3,8 +3,6 @@ import {
     Text,
     ActivityIndicator,
     StyleSheet,
-    TouchableOpacity,
-    useColorScheme,
     TouchableHighlight
 } from "react-native";
 import getMuseum from "../api/getMuseum";
@@ -12,14 +10,11 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {useNavigation} from "@react-navigation/native";
 import {MainStackNavigation} from "../App";
 import {Image} from 'expo-image';
-import {Appearance} from 'react-native';
 import {MOCK_IMAGE} from "../constans";
 import {
-    darkBackground,
     darkHighlight,
     darkSurface,
     darkText,
-    lightBackground,
     lightHighlight,
     lightSurface,
     lightText
@@ -43,7 +38,6 @@ export default function MuseumTile(props: MuseumTileProps) {
             navigation.navigate("DetailedMuseum", {"museum": museumAction.data!})
         }
     }
-
 
 
     const tileColorScheme = colorScheme.light ? styles.tileLightColorScheme : styles.tileDarkColorScheme;
@@ -75,8 +69,8 @@ export default function MuseumTile(props: MuseumTileProps) {
 }
 
 const styles = StyleSheet.create({
-    touchableLayout:{
-      margin: 4,
+    touchableLayout: {
+        margin: 4,
         borderRadius: 12,
     },
     tileLayout: {

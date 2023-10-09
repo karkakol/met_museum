@@ -1,11 +1,10 @@
-import {Appearance, Button, Pressable, StyleSheet, Switch, Text, TouchableHighlight, View} from "react-native";
+import {Appearance, StyleSheet, Text, TouchableHighlight, View} from "react-native";
 import useAppColorScheme from "../../../hooks/useAppColorScheme";
-import {useCallback, useState} from "react";
+import {useCallback} from "react";
 import {
     darkHighlight,
     darkSurface,
     darkText,
-    lightBackground,
     lightHighlight,
     lightSurface,
     lightText
@@ -18,7 +17,6 @@ export function ToggleThemeTile() {
     const toggleColorScheme = useCallback(() => {
         if (colorScheme.light) Appearance.setColorScheme("dark");
         else Appearance.setColorScheme("light");
-
     }, [colorScheme]);
 
     const containerColors = colorScheme.light ? styles.containerLightColors : styles.containerDarkColors;

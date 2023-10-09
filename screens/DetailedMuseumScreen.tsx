@@ -34,7 +34,6 @@ const screenWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     containerLayout: {
         height: "100%",
-        backgroundColor: "white",
         padding: 20,
         display: "flex",
         alignItems: "center"

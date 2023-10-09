@@ -1,6 +1,5 @@
-import {Appearance, Switch, View, Text} from 'react-native';
+import {View} from 'react-native';
 import { StyleSheet } from 'react-native';
-import {useCallback, useState} from "react";
 import useAppColorScheme from "../../hooks/useAppColorScheme";
 import {darkBackground, lightBackground} from "../../colors";
 import {ToggleThemeTile} from "./components/ToggleThemeTile";
