@@ -2,10 +2,13 @@ import {FlatList, TouchableOpacity, View} from "react-native";
 import MuseumTile from "./MuseumTile";
 import {useContext} from "react";
 import {FavouritesContext} from "../providers/FavouritesProvider";
-
+import { StyleSheet } from 'react-native';
+import useAppColorScheme from "../hooks/useAppColorScheme";
+import {darkBackground, lightBackground} from "../colors";
 
 export default function FavouriteList() {
     const favouriteContext = useContext(FavouritesContext)
+    const colorScheme = useAppColorScheme();
 
     const renderItem = ({item}: { item: number }) => {
         return (
@@ -14,9 +17,13 @@ export default function FavouriteList() {
             </TouchableOpacity>
         );
     };
+
+    const containerColors = colorScheme.light ? styles.containerLight : styles.containerDark;
+
     return (
-        <View>
+        <View style={[styles.containerLayout, containerColors]}>
             <FlatList<number>
+                style={styles.listLayout}
                 data={favouriteContext.favourites}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.toString()}
@@ -24,3 +31,21 @@ export default function FavouriteList() {
         </View>
     );
 }
+
+
+
+const styles = StyleSheet.create({
+    containerLayout:{
+        height: "100%",
+    },
+    listLayout:{
+        paddingVertical: 8,
+        paddingHorizontal: 8,
+    },
+    containerLight: {
+        backgroundColor: lightBackground,
+    },
+    containerDark: {
+        backgroundColor: darkBackground,
+    }
+});

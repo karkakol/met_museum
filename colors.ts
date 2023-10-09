@@ -1,0 +1,8 @@
+export const lightBackground = "white"
+export const lightSurface = "#DDDDDD"
+export const lightHighlight = "#222222BB"
+export const lightText = "#222222"
+export const darkBackground = "black"
+export const darkSurface = "#222222"
+export const darkHighlight = "#DDDDDDBB"
+export const darkText = "#DDDDDD"
