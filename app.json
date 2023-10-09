@@ -8,14 +8,21 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#000000",
+      "tabletImage":  "./assets/splash_tablet.png"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
+      "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#000000",
+        "tabletImage":  "./assets/splash_tablet.png"
+      }
     },
     "android": {
       "adaptiveIcon": {
