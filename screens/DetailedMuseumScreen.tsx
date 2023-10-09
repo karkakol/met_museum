@@ -4,7 +4,6 @@ import {MainRootStackParamList} from "../App";
 import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
 import {Image} from "expo-image";
-import Animated from 'react-native-reanimated';
 import {MOCK_IMAGE} from "../constans";
 import {useMemo} from "react";
 import {darkBackground, lightBackground} from "../colors";
