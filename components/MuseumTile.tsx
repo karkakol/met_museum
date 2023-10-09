@@ -3,7 +3,7 @@ import {
     Text,
     ActivityIndicator,
     StyleSheet,
-    TouchableHighlight
+    TouchableHighlight, useColorScheme
 } from "react-native";
 import getMuseum from "../api/getMuseum";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
@@ -19,7 +19,7 @@ import {
     lightSurface,
     lightText
 } from "../colors";
-import useAppColorScheme from "../hooks/useAppColorScheme";
+
 
 interface MuseumTileProps {
     id: number;
@@ -28,7 +28,7 @@ interface MuseumTileProps {
 }
 
 export default function MuseumTile(props: MuseumTileProps) {
-    const colorScheme = useAppColorScheme();
+    const colorScheme = useColorScheme();
 
     const museumAction = getMuseum(props.id);
     const navigation = useNavigation<MainStackNavigation>();
@@ -40,13 +40,13 @@ export default function MuseumTile(props: MuseumTileProps) {
     }
 
 
-    const tileColorScheme = colorScheme.light ? styles.tileLightColorScheme : styles.tileDarkColorScheme;
-    const labelColorScheme = colorScheme.light ? styles.labelLightColorScheme : styles.labelDarkColorScheme;
+    const tileColorScheme = colorScheme == "light" ? styles.tileLightColorScheme : styles.tileDarkColorScheme;
+    const labelColorScheme = colorScheme == "light" ? styles.labelLightColorScheme : styles.labelDarkColorScheme;
 
 
-    const underlayColor = colorScheme.light ? lightHighlight : darkHighlight;
-    const iconButtonBackgroundColor = colorScheme.light ? lightSurface : darkSurface;
-    const highlightColor = colorScheme.light ? lightHighlight : darkHighlight;
+    const underlayColor = colorScheme == "light" ? lightHighlight : darkHighlight;
+    const iconButtonBackgroundColor = colorScheme == "light" ? lightSurface : darkSurface;
+    const highlightColor = colorScheme == "light" ? lightHighlight : darkHighlight;
     return (
         <TouchableHighlight onPress={onTileTap} underlayColor={highlightColor} style={styles.touchableLayout}>
             <View style={[styles.tileLayout, tileColorScheme]}>

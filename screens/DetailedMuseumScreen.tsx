@@ -1,4 +1,4 @@
-import {View} from "react-native";
+import {useColorScheme, View} from "react-native";
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MainRootStackParamList} from "../App";
 import {StyleSheet} from 'react-native';
@@ -7,12 +7,12 @@ import {Image} from "expo-image";
 import {MOCK_IMAGE} from "../constans";
 import {useMemo} from "react";
 import {darkBackground, lightBackground} from "../colors";
-import useAppColorScheme from "../hooks/useAppColorScheme";
+
 
 type Props = NativeStackScreenProps<MainRootStackParamList, "DetailedMuseum">;
 
 export default function DetailedMuseumScreen({route}: Props) {
-    const colorScheme = useAppColorScheme();
+    const colorScheme = useColorScheme();
 
     const museum = route.params.museum
     let imageUrl = useMemo(() => museum.primaryImageSmall.trim().length == 0 ?
@@ -20,7 +20,7 @@ export default function DetailedMuseumScreen({route}: Props) {
         museum.primaryImageSmall, [],
     )
 
-    const containerColors = colorScheme.light ? styles.containerLight : styles.containerDark;
+    const containerColors = colorScheme == "light" ? styles.containerLight : styles.containerDark;
 
     return (
         <View style={[styles.containerLayout, containerColors]}>

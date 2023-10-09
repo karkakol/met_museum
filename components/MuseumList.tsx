@@ -1,17 +1,17 @@
-import {ActivityIndicator, FlatList, StyleSheet, View} from "react-native";
+import {ActivityIndicator, FlatList, StyleSheet, useColorScheme, View} from "react-native";
 import getAllIds from "../api/getAllIds";
 import MuseumTile from "./MuseumTile";
 import {useContext, useEffect} from "react";
 import {FavouritesContext} from "../providers/FavouritesProvider";
 import {darkBackground, lightBackground} from "../colors";
-import useAppColorScheme from "../hooks/useAppColorScheme";
+
 
 interface MuseumListProps {
     search: string | undefined;
 }
 
 export default function MuseumList(props: MuseumListProps) {
-    const colorScheme = useAppColorScheme();
+    const colorScheme = useColorScheme();
 
     const favouriteContext = useContext(FavouritesContext)
     const idsAction = getAllIds(props?.search ?? "");
@@ -26,7 +26,7 @@ export default function MuseumList(props: MuseumListProps) {
                         selected={favouriteContext.selected(item) ?? false}/>
         );
     };
-    const containerColors = colorScheme.light ? styles.containerLight : styles.containerDark;
+    const containerColors = colorScheme == "light" ? styles.containerLight : styles.containerDark;
 
     return (
         <View style={[styles.containerLayout, containerColors]}>

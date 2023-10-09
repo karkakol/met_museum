@@ -1,12 +1,12 @@
-import {View} from 'react-native';
+import {useColorScheme, View} from 'react-native';
 import { StyleSheet } from 'react-native';
-import useAppColorScheme from "../../hooks/useAppColorScheme";
+
 import {darkBackground, lightBackground} from "../../colors";
 import {ToggleThemeTile} from "./components/ToggleThemeTile";
 export default function SettingsScreen () {
-  const colorScheme = useAppColorScheme();
+  const colorScheme = useColorScheme();
 
-  const containerColors = colorScheme.light ? styles.containerLight : styles.containerDark;
+  const containerColors = colorScheme == "light" ? styles.containerLight : styles.containerDark;
 
     return (
       <View style={[styles.containerLayout, containerColors]}>

@@ -6,19 +6,19 @@ import {BottomTabNavigationOptions, createBottomTabNavigator} from "@react-navig
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {Fontisto} from "@expo/vector-icons";
 import SettingsScreen from "./settings/SettingsScreen";
-import {StyleSheet} from 'react-native';
-import useAppColorScheme from "../hooks/useAppColorScheme";
+import {StyleSheet, useColorScheme} from 'react-native';
+
 
 const Tab = createBottomTabNavigator();
 
 export default function HomeScreen() {
-    const colorScheme = useAppColorScheme();
+    const colorScheme = useColorScheme();
 
     return (
         <Tab.Navigator screenOptions={({route})=>({
-            tabBarStyle: colorScheme.light ? styles.tabBarLightStyle : styles.tabBarDarkStyle,
-            headerStyle: colorScheme.light ? styles.tabBarLightStyle : styles.tabBarDarkStyle,
-            headerTintColor: colorScheme.light ? "black" : "white",
+            tabBarStyle: colorScheme == "light" ? styles.tabBarLightStyle : styles.tabBarDarkStyle,
+            headerStyle: colorScheme == "light" ? styles.tabBarLightStyle : styles.tabBarDarkStyle,
+            headerTintColor: colorScheme == "light" ? "black" : "white",
         })}>
             <Tab.Screen name="All" component={AllMuseumsScreen} options={homeIcon()}/>
             <Tab.Screen name="Search" component={SearchMuseumScreen} options={searchIcon()}/>

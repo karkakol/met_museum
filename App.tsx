@@ -4,8 +4,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from "./screens/HomeScreen";
 import DetailedMuseumScreen from "./screens/DetailedMuseumScreen";
 import Museum from "./model/Museum";
-import {StyleSheet} from "react-native";
-import useAppColorScheme from "./hooks/useAppColorScheme";
+import {StyleSheet, useColorScheme} from "react-native";
+
 
 export type MainRootStackParamList = {
     "Home": undefined,
@@ -25,14 +25,14 @@ export default function App() {
 }
 
 function MainNavigator() {
-    const colorScheme = useAppColorScheme();
+    const colorScheme = useColorScheme();
 
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={({route})=>({
-                tabBarStyle: colorScheme.light ? styles.tabBarLightStyle : styles.tabBarDarkStyle,
-                headerStyle: colorScheme.light ? styles.tabBarLightStyle : styles.tabBarDarkStyle,
-                headerTintColor: colorScheme.light ? "black" : "white",
+                tabBarStyle: colorScheme == "light" ? styles.tabBarLightStyle : styles.tabBarDarkStyle,
+                headerStyle: colorScheme == "light" ? styles.tabBarLightStyle : styles.tabBarDarkStyle,
+                headerTintColor: colorScheme == "light" ? "black" : "white",
             })}>
                 <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="DetailedMuseum" component={DetailedMuseumScreen} options={({ route }) => ({ title: route.params.museum.title })}/>

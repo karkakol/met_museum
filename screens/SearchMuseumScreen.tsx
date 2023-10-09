@@ -1,17 +1,17 @@
-import {TextInput, View, StyleSheet} from "react-native";
+import {TextInput, View, StyleSheet, useColorScheme} from "react-native";
 import MuseumList from "../components/MuseumList";
 import {useState} from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {darkBackground, darkSurface, darkText, lightBackground, lightSurface, lightText} from "../colors";
-import useAppColorScheme from "../hooks/useAppColorScheme";
+
 
 export default function SearchMuseumScreen() {
-    const colorScheme = useAppColorScheme();
+    const colorScheme = useColorScheme();
     const [search, setSearch] = useState('');
 
-    const containerColors = colorScheme.light ? styles.containerLight : styles.containerDark;
-    const searchBarColors = colorScheme.light ? styles.searchBarLight : styles.searchBarDark;
-    const inputColors = colorScheme.light ? styles.inputLight : styles.inputDark;
+    const containerColors = colorScheme == "light" ? styles.containerLight : styles.containerDark;
+    const searchBarColors = colorScheme == "light" ? styles.searchBarLight : styles.searchBarDark;
+    const inputColors = colorScheme == "light" ? styles.inputLight : styles.inputDark;
     return (
         <View style={[styles.containerLayout, containerColors]}>
             <View style={[styles.searchBar, searchBarColors]}>

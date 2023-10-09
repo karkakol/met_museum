@@ -1,5 +1,5 @@
-import {Appearance, StyleSheet, Text, TouchableHighlight, View} from "react-native";
-import useAppColorScheme from "../../../hooks/useAppColorScheme";
+import {Appearance, StyleSheet, Text, TouchableHighlight, useColorScheme, View} from "react-native";
+
 import {useCallback} from "react";
 import {
     darkHighlight,
@@ -10,23 +10,23 @@ import {
     lightText
 } from "../../../colors";
 import {MaterialIcons} from '@expo/vector-icons';
+import setColorScheme = Appearance.setColorScheme;
 
 export function ToggleThemeTile() {
-    const colorScheme = useAppColorScheme();
+    const colorScheme = useColorScheme();
 
     const toggleColorScheme = useCallback(() => {
-        if (colorScheme.light) Appearance.setColorScheme("dark");
-        else Appearance.setColorScheme("light");
+        if (colorScheme == "light") setColorScheme("dark");
+        else setColorScheme("light");
     }, [colorScheme]);
 
-    const containerColors = colorScheme.light ? styles.containerLightColors : styles.containerDarkColors;
-    const labelColors = colorScheme.light ? styles.labelLightColors : styles.labelDarkColors;
+    const containerColors = colorScheme == "light" ? styles.containerLightColors : styles.containerDarkColors;
+    const labelColors = colorScheme == "light" ? styles.labelLightColors : styles.labelDarkColors;
 
+    const label = colorScheme == "light" ? "Enable dark mode" : "Enable light mode";
 
-    const label = colorScheme.light ? "Enable dark mode" : "Enable light mode";
-
-    const iconColor = colorScheme.light ? lightText : darkText;
-    const highlightColor = colorScheme.light ? lightHighlight : darkHighlight;
+    const iconColor = colorScheme == "light" ? lightText : darkText;
+    const highlightColor = colorScheme == "light" ? lightHighlight : darkHighlight;
     return (
         <TouchableHighlight onPress={toggleColorScheme} underlayColor={highlightColor} style={styles.touchable}>
             <View style={[styles.containerLayout, containerColors]}>
