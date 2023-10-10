@@ -21,14 +21,14 @@ export async function setFavourites(elements: number[]): Promise<void> {
 }
 
 export async function toggleFavourite(id: number): Promise<Array<number>> {
-    let fav = (await getFavourites()) ?? [];
-    if (fav.includes(id)) {
-        let newFav = fav.filter((e) => e != id);
-        await setFavourites(newFav);
-        return newFav;
-    } else {
-        fav.push(id);
-        await setFavourites(fav);
-        return fav;
-    }
+  const fav = await getFavourites();
+  if (fav.includes(id)) {
+    const newFav = fav.filter((e) => e !== id);
+    await setFavourites(newFav);
+    return newFav;
+  } else {
+    fav.push(id);
+    await setFavourites(fav);
+    return fav;
+  }
 }

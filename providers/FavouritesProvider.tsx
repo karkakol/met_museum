@@ -1,47 +1,61 @@
-import {createContext, useEffect, useState} from "react";
-import {getFavourites, toggleFavourite} from "../async_storage/LocalStorage";
+import React, {
+  createContext,
+  type ReactNode,
+  useEffect,
+  useState,
+} from "react";
+
+import { getFavourites, toggleFavourite } from "../async_storage/LocalStorage";
 
 interface FavouriteContextModel {
-    loading: boolean;
-    favourites: Array<number>;
-    toggle(id: number): void;
-    selected(id: number): boolean,
+  loading: boolean;
+  favourites: Array<number>;
+  toggle(id: number): void;
+  selected(id: number): boolean;
 }
 
 export const FavouritesContext = createContext<FavouriteContextModel>({
-    loading: true,
-    favourites: [],
-    toggle(id: number) {
-    },
-    selected(id: number) {
-        return true
-    },
+  loading: true,
+  favourites: [],
+  toggle(id: number) {},
+  selected(id: number) {
+    return true;
+  },
 });
 
-export const FavouritesProvider = (props: any) => {
+type FavouritesProps = {
+  children: ReactNode;
+};
 
-    const [favourites, setFavourites] = useState<Array<number>>([]);
+export const FavouritesProvider = (props: FavouritesProps) => {
+  const [favourites, setFavourites] = useState<Array<number>>([]);
 
-    const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-    useEffect(() => {
-        setLoading(true);
-        getFavourites()
-            .then(setFavourites)
-            .catch(console.log)
-            .finally(() => setLoading(false))
-    }, []);
+  useEffect(() => {
+    setLoading(true);
+    getFavourites()
+      .then(setFavourites)
+      .catch(console.log)
+      .finally(() => setLoading(false));
+  }, []);
 
-    const toggle = (id: number): void => {
-        toggleFavourite(id).then(setFavourites).catch(console.log);
-    }
+  const toggle = (id: number): void => {
+    toggleFavourite(id).then(setFavourites).catch(console.log);
+  };
 
-    const selected = (id: number): boolean => favourites?.includes(id) ?? false;
+  const selected = (id: number): boolean => favourites.includes(id);
 
-    return (
-        <FavouritesContext.Provider
-            value={{favourites: favourites, loading: loading, toggle: toggle, selected: selected}}>
-            {props.children}
-        </FavouritesContext.Provider>
-    )
-}
+  return (
+    <FavouritesContext.Provider
+      value={{
+        favourites: favourites,
+        loading: loading,
+        toggle: toggle,
+        selected: selected,
+      }}
+    >
+      {props.children}
+    </FavouritesContext.Provider>
+  );
+};
