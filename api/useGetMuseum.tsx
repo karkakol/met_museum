@@ -25,6 +25,5 @@ export default function useGetMuseum(id: number): Action<Museum> {
   return {
     inProgress,
     data: museum ?? null,
-    retry: fetchDetailedMuseum,
   };
 }

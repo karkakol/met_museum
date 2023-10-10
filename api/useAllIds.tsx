@@ -22,11 +22,10 @@ export default function useAllIds(search: string): Action<number[]> {
       });
   }, [search]);
 
-  useEffect(fetchMuseumsIds, []);
+  useEffect(fetchMuseumsIds, [fetchMuseumsIds]);
 
   return {
     inProgress,
     data: museumResponse?.objectIDs ?? [],
-    retry: fetchMuseumsIds,
   };
 }

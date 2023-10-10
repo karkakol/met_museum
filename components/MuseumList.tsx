@@ -12,12 +12,8 @@ interface MuseumListProps {
   search: string | undefined;
 }
 export default function MuseumList(props: MuseumListProps) {
-  const idsAction = useAllIds(props.search ?? "");
   const debounsedSearch = useDebounce(props.search, 500);
-
-  useEffect(() => {
-    idsAction.retry();
-  }, [debounsedSearch]);
+  const idsAction = useAllIds(debounsedSearch ?? "");
 
   const focused = useIsFocused();
   const [favIds, setFavIds] = useState<number[]>([]);
