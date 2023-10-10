@@ -1,5 +1,5 @@
 interface MuseumsResponse {
-  objectIDs: number[]
+  objectIDs: number[];
 }
 
-export default MuseumsResponse
+export default MuseumsResponse;

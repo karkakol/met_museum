@@ -1,5 +1,5 @@
 interface Museum {
-  objectID: number
-  title: string
+  objectID: number;
+  title: string;
 }
-export default Museum
+export default Museum;
