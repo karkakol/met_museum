@@ -29,13 +29,13 @@ function MainNavigator() {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={({route})=>({
+            <Stack.Navigator screenOptions={()=>({
                 tabBarStyle: colorScheme == "light" ? styles.tabBarLightStyle : styles.tabBarDarkStyle,
                 headerStyle: colorScheme == "light" ? styles.tabBarLightStyle : styles.tabBarDarkStyle,
                 headerTintColor: colorScheme == "light" ? "black" : "white",
             })}>
                 <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="DetailedMuseum" component={DetailedMuseumScreen} options={({ route }) => ({ title: route.params.museum.title })}/>
+                <Stack.Screen name="DetailedMuseum" component={DetailedMuseumScreen} options={({route}) => ({ title: route.params.museum.title })}/>
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -20,7 +20,6 @@ import {
 } from "../colors";
 
 import useGetMuseum from "../api/useGetMuseum";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 
 interface MuseumTileProps {
