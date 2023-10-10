@@ -1,7 +1,5 @@
-type MuseumsResponse = {
-    objectIDs: Array<number>,
+interface MuseumsResponse {
+  objectIDs: number[]
 }
 
 export default MuseumsResponse
-
-

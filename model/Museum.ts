@@ -1,5 +1,5 @@
-type Museum = {
-    objectID: number;
-    title: string;
+interface Museum {
+  objectID: number
+  title: string
 }
 export default Museum

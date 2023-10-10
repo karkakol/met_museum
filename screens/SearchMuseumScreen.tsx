@@ -1,12 +1,12 @@
-import {TextInput, View, StyleSheet} from "react-native";
-import MuseumList from "../components/MuseumList";
-import {useState} from "react";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { TextInput, View, StyleSheet } from 'react-native'
+import MuseumList from '../components/MuseumList'
+import { useState } from 'react'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
-export default function SearchMuseumScreen() {
-    const [search, setSearch] = useState('');
+export default function SearchMuseumScreen () {
+  const [search, setSearch] = useState('')
 
-    return (
+  return (
         <View>
             <View style={styles.inputWrapper}>
                 <TextInput
@@ -19,22 +19,22 @@ export default function SearchMuseumScreen() {
 
             <MuseumList search={search}/>
         </View>
-    );
+  )
 }
 
 const styles = StyleSheet.create({
-    inputWrapper: {
-        display: 'flex',
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        padding: 10,
-        elevation: 2,
-    },
-    input: {
-        flex: 1,
-        fontSize: 20,
-    },
-    searchIcon: {
-        fontSize: 20,
-    },
-});
+  inputWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    padding: 10,
+    elevation: 2
+  },
+  input: {
+    flex: 1,
+    fontSize: 20
+  },
+  searchIcon: {
+    fontSize: 20
+  }
+})

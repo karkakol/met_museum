@@ -1,47 +1,48 @@
-import {FlatList, Text, TouchableOpacity, View} from "react-native";
-import getAllIds from "../api/getAllIds";
-import MuseumTile from "./MuseumTile";
-import {useEffect, useState} from "react";
-import {getFavourites, toggle} from "../async_storage/LocalStorage";
-import {useIsFocused} from "@react-navigation/native";
+import { FlatList, Text, TouchableOpacity, View } from 'react-native'
+import useAllIds from '../api/useAllIds'
+import MuseumTile from './MuseumTile'
+import { useEffect, useState } from 'react'
+import { getFavourites, toggle } from '../async_storage/LocalStorage'
+import { useIsFocused } from '@react-navigation/native'
 
-interface MuseumListProps{
-    search: string|undefined;
+interface MuseumListProps {
+  search: string | undefined
 }
-export default function MuseumList(props: MuseumListProps){
-    const idsAction = getAllIds(props?.search??"");
+export default function MuseumList (props: MuseumListProps) {
+  const idsAction = useAllIds(props?.search ?? '')
 
-    useEffect(() => {
-        idsAction.retry();
-    }, [props.search]);
+  useEffect(() => {
+    idsAction.retry()
+  }, [props.search])
 
-    const focused = useIsFocused();
-    const [favIds, setFavIds] = useState<Array<number>>([])
+  const focused = useIsFocused()
+  const [favIds, setFavIds] = useState<number[]>([])
 
-    useEffect(() => {
-        getFavourites().then((ids) => setFavIds(ids))
-    }, []);
+  useEffect(() => {
+    getFavourites().then((ids) => { setFavIds(ids) }).catch(console.log)
+  }, [])
 
-    useEffect(() => {
-        getFavourites().then((ids) => setFavIds(ids))
-    }, [focused]);
+  useEffect(() => {
+    getFavourites().then((ids) => { setFavIds(ids) }).catch(console.log)
+  }, [focused])
 
-    function onTileTap(value: number){
-        toggle(value).then((ids) => setFavIds(ids))
-    }
+  function onTileTap (value: number) {
+    toggle(value).then((ids) => { setFavIds(ids) }).catch(console.log)
+  }
 
-    const renderItem = ({item}: { item: number }) => {
-
-        return (
-            <TouchableOpacity>
-                <MuseumTile id={item} onTap={() =>onTileTap(item)} selected={favIds?.includes(item) ?? false}/>
-            </TouchableOpacity>
-        );
-    };
+  const renderItem = ({ item }: { item: number }) => {
     return (
+            <TouchableOpacity>
+                <MuseumTile id={item} onTap={() => { onTileTap(item) }} selected={favIds?.includes(item) ?? false}/>
+            </TouchableOpacity>
+    )
+  }
+  return (
         <View>
             {
-                idsAction.inProgress ? <Text>Loading</Text> : <FlatList<number>
+                idsAction.inProgress
+                  ? <Text>Loading</Text>
+                  : <FlatList<number>
                     data={idsAction.data}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.toString()}
@@ -49,5 +50,5 @@ export default function MuseumList(props: MuseumListProps){
             }
 
         </View>
-    );
+  )
 }
