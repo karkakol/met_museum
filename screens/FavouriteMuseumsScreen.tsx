@@ -1,11 +1,11 @@
-import {View} from "react-native";
+import { View } from "react-native";
+
 import FavouriteList from "../components/FavouriteList";
 
-export default function FavouriteMuseumsScreen(){
-
-    return (
-        <View>
-            <FavouriteList />
-        </View>
-    );
+export default function FavouriteMuseumsScreen() {
+  return (
+    <View>
+      <FavouriteList />
+    </View>
+  );
 }

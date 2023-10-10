@@ -5,7 +5,6 @@ import {
     StyleSheet,
     TouchableHighlight, useColorScheme
 } from "react-native";
-import getMuseum from "../api/getMuseum";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {useNavigation} from "@react-navigation/native";
 import {MainStackNavigation} from "../App";
@@ -20,6 +19,9 @@ import {
     lightText
 } from "../colors";
 
+import useGetMuseum from "../api/useGetMuseum";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+
 
 interface MuseumTileProps {
     id: number;
@@ -30,7 +32,7 @@ interface MuseumTileProps {
 export default function MuseumTile(props: MuseumTileProps) {
     const colorScheme = useColorScheme();
 
-    const museumAction = getMuseum(props.id);
+    const museumAction = useGetMuseum(props.id);
     const navigation = useNavigation<MainStackNavigation>();
 
     const onTileTap = () => {

@@ -3,6 +3,7 @@ import MuseumTile from "./MuseumTile";
 import {useContext} from "react";
 import {FavouritesContext} from "../providers/FavouritesProvider";
 import { StyleSheet } from 'react-native';
+import React from "react";
 
 import {darkBackground, lightBackground} from "../colors";
 
@@ -11,6 +12,7 @@ export default function FavouriteList() {
     const colorScheme = useColorScheme();
 
     const renderItem = ({item}: { item: number }) => {
+
         return (
             <TouchableOpacity>
                 <MuseumTile id={item} onFavouriteTap={() => favouriteContext.toggle(item)} selected={favouriteContext.favourites.includes(item) ?? false}/>
@@ -31,6 +33,7 @@ export default function FavouriteList() {
         </View>
     );
 }
+
 
 
 

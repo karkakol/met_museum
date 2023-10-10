@@ -13,4 +13,4 @@ type Museum = {
     primaryImage: string;
     primaryImageSmall: string,
 }
-export default Museum
+export default Museum;

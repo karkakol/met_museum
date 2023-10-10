@@ -1,24 +1,26 @@
 import {ActivityIndicator, FlatList, StyleSheet, useColorScheme, View} from "react-native";
-import getAllIds from "../api/getAllIds";
+import useAllIds from "../api/useAllIds";
 import MuseumTile from "./MuseumTile";
-import {useContext, useEffect} from "react";
+import { useDebounce } from "../hooks/useDebounce";
+
+import {useContext} from "react";
 import {FavouritesContext} from "../providers/FavouritesProvider";
 import {darkBackground, lightBackground} from "../colors";
 
 
-interface MuseumListProps {
-    search: string | undefined;
+interface MuseumListProps{
+    search: string|undefined;
 }
 
 export default function MuseumList(props: MuseumListProps) {
     const colorScheme = useColorScheme();
+    const debounsedSearch = useDebounce(props.search, 500);
 
     const favouriteContext = useContext(FavouritesContext)
-    const idsAction = getAllIds(props?.search ?? "");
+    const idsAction = useAllIds(debounsedSearch ?? "");
 
-    useEffect(() => {
-        idsAction.retry();
-    }, [props.search]);
+
+
 
     const renderItem = ({item}: { item: number }) => {
         return (
