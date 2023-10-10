@@ -20,12 +20,7 @@ export default function useAllIds(search: string): Action<number[]> {
       .finally(() => {
         setInProgress(false);
       });
-    console.log(search);
   }, [search]);
-
-  useEffect(() => {
-    console.log("ELLLO");
-  }, []);
 
   useEffect(fetchMuseumsIds, []);
 
