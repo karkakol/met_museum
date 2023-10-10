@@ -9,6 +9,7 @@ import { FavouritesProvider } from "./providers/FavouritesProvider";
 import HomeScreen from "./screens/HomeScreen";
 import DetailedMuseumScreen from "./screens/DetailedMuseumScreen";
 import type Museum from "./model/Museum";
+import { Colors } from "./colors";
 
 export type MainRootStackParamList = {
   Home: undefined;
@@ -42,7 +43,8 @@ function MainNavigator() {
             colorScheme === "light"
               ? styles.tabBarLightStyle
               : styles.tabBarDarkStyle,
-          headerTintColor: colorScheme === "light" ? "black" : "white",
+          headerTintColor:
+            colorScheme === "light" ? Colors.lightHeader : Colors.darkHeader,
         })}
       >
         <Stack.Screen
@@ -62,9 +64,9 @@ function MainNavigator() {
 
 const styles = StyleSheet.create({
   tabBarLightStyle: {
-    backgroundColor: "white",
+    backgroundColor: Colors.lightBackground,
   },
   tabBarDarkStyle: {
-    backgroundColor: "black",
+    backgroundColor: Colors.darkBackground,
   },
 });

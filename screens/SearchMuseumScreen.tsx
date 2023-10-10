@@ -3,14 +3,7 @@ import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import MuseumList from "../components/MuseumList";
-import {
-  darkBackground,
-  darkSurface,
-  darkText,
-  lightBackground,
-  lightSurface,
-  lightText,
-} from "../colors";
+import { Colors } from "../colors";
 
 export default function SearchMuseumScreen() {
   const colorScheme = useColorScheme();
@@ -44,10 +37,10 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   containerLight: {
-    backgroundColor: lightBackground,
+    backgroundColor: Colors.lightBackground,
   },
   containerDark: {
-    backgroundColor: darkBackground,
+    backgroundColor: Colors.darkBackground,
   },
   searchBar: {
     display: "flex",
@@ -62,19 +55,19 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   searchBarLight: {
-    backgroundColor: lightSurface,
+    backgroundColor: Colors.lightSurface,
   },
   searchBarDark: {
-    backgroundColor: darkSurface,
+    backgroundColor: Colors.darkSurface,
   },
   inputLayout: {
     flex: 1,
     fontSize: 24,
   },
   inputLight: {
-    color: lightText,
+    color: Colors.lightText,
   },
   inputDark: {
-    color: darkText,
+    color: Colors.darkText,
   },
 });

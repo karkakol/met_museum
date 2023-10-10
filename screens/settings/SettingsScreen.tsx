@@ -1,6 +1,6 @@
 import { useColorScheme, View, StyleSheet } from "react-native";
 
-import { darkBackground, lightBackground } from "../../colors";
+import { Colors } from "../../colors";
 
 import { ToggleThemeTile } from "./components/ToggleThemeTile";
 export default function SettingsScreen() {
@@ -18,16 +18,15 @@ export default function SettingsScreen() {
 
 const styles = StyleSheet.create({
   containerLayout: {
-    display: "flex",
     flexDirection: "column",
     height: "100%",
     paddingHorizontal: 8,
     paddingVertical: 16,
   },
   containerLight: {
-    backgroundColor: lightBackground,
+    backgroundColor: Colors.lightBackground,
   },
   containerDark: {
-    backgroundColor: darkBackground,
+    backgroundColor: Colors.darkBackground,
   },
 });

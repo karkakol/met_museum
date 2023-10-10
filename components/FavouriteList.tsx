@@ -8,12 +8,12 @@ import {
 import React, { useContext } from "react";
 
 import { FavouritesContext } from "../providers/FavouritesProvider";
-import { darkBackground, lightBackground } from "../colors";
+import { Colors } from "../colors";
 
 import MuseumTile from "./MuseumTile";
 
 export default function FavouriteList() {
-  const favouriteContext = useContext(FavouritesContext);
+  const { favourites, toggle } = useContext(FavouritesContext);
   const colorScheme = useColorScheme();
 
   const renderItem = ({ item }: { item: number }) => {
@@ -21,21 +21,21 @@ export default function FavouriteList() {
       <TouchableOpacity>
         <MuseumTile
           id={item}
-          onFavouriteTap={() => favouriteContext.toggle(item)}
-          selected={favouriteContext.favourites.includes(item)}
+          onFavouriteTap={() => toggle(item)}
+          selected={favourites.includes(item)}
         />
       </TouchableOpacity>
     );
   };
 
   const containerColors =
-    colorScheme === "light" ? styles.containerLight : styles.containerDark;
+    colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
 
   return (
     <View style={[styles.containerLayout, containerColors]}>
       <FlatList<number>
         style={styles.listLayout}
-        data={favouriteContext.favourites}
+        data={favourites}
         renderItem={renderItem}
         keyExtractor={(item) => item.toString()}
       />
@@ -48,13 +48,12 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   listLayout: {
-    paddingVertical: 8,
-    paddingHorizontal: 8,
+    padding: 8,
   },
-  containerLight: {
-    backgroundColor: lightBackground,
+  lightContainer: {
+    backgroundColor: Colors.lightBackground,
   },
-  containerDark: {
-    backgroundColor: darkBackground,
+  darkContainer: {
+    backgroundColor: Colors.darkBackground,
   },
 });

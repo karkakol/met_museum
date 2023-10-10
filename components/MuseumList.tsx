@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import useAllIds from "../api/useAllIds";
 import { FavouritesContext } from "../providers/FavouritesProvider";
-import { darkBackground, lightBackground } from "../colors";
+import { Colors } from "../colors";
 
 import MuseumTile from "./MuseumTile";
 
@@ -67,9 +67,9 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   containerLight: {
-    backgroundColor: lightBackground,
+    backgroundColor: Colors.lightBackground,
   },
   containerDark: {
-    backgroundColor: darkBackground,
+    backgroundColor: Colors.darkBackground,
   },
 });

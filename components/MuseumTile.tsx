@@ -12,14 +12,7 @@ import { Image } from "expo-image";
 
 import type { MainStackNavigation } from "../App";
 import { MOCK_IMAGE } from "../constans";
-import {
-  darkHighlight,
-  darkSurface,
-  darkText,
-  lightHighlight,
-  lightSurface,
-  lightText,
-} from "../colors";
+import { Colors } from "../colors";
 import useGetMuseum from "../api/useGetMuseum";
 
 interface MuseumTileProps {
@@ -50,11 +43,11 @@ export default function MuseumTile(props: MuseumTileProps) {
       : styles.labelDarkColorScheme;
 
   const underlayColor =
-    colorScheme === "light" ? lightHighlight : darkHighlight;
+    colorScheme === "light" ? Colors.lightHighlight : Colors.darkHighlight;
   const iconButtonBackgroundColor =
-    colorScheme === "light" ? lightSurface : darkSurface;
+    colorScheme === "light" ? Colors.lightSurface : Colors.darkSurface;
   const highlightColor =
-    colorScheme === "light" ? lightHighlight : darkHighlight;
+    colorScheme === "light" ? Colors.lightHighlight : Colors.darkHighlight;
   return (
     <TouchableHighlight
       onPress={onTileTap}
@@ -102,20 +95,20 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   tileLightColorScheme: {
-    backgroundColor: lightSurface,
+    backgroundColor: Colors.lightSurface,
   },
   tileDarkColorScheme: {
-    backgroundColor: darkSurface,
+    backgroundColor: Colors.darkSurface,
   },
   labelLayout: {
     flexShrink: 1,
     paddingHorizontal: 12,
   },
   labelLightColorScheme: {
-    color: lightText,
+    color: Colors.lightText,
   },
   labelDarkColorScheme: {
-    color: darkText,
+    color: Colors.darkText,
   },
   image: {
     width: 50,

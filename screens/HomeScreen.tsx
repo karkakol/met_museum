@@ -7,6 +7,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Fontisto } from "@expo/vector-icons";
 import { StyleSheet, useColorScheme } from "react-native";
 
+import { Colors } from "../colors";
+
 import SettingsScreen from "./settings/SettingsScreen";
 import FavouriteMuseumsScreen from "./FavouriteMuseumsScreen";
 import SearchMuseumScreen from "./SearchMuseumScreen";
@@ -28,7 +30,8 @@ export default function HomeScreen() {
           colorScheme === "light"
             ? styles.tabBarLightStyle
             : styles.tabBarDarkStyle,
-        headerTintColor: colorScheme === "light" ? "black" : "white",
+        headerTintColor:
+          colorScheme === "light" ? Colors.lightHeader : Colors.darkHeader,
       })}
     >
       <Tab.Screen
@@ -89,9 +92,9 @@ const settingsIcon = (): BottomTabNavigationOptions => {
 
 const styles = StyleSheet.create({
   tabBarLightStyle: {
-    backgroundColor: "white",
+    backgroundColor: Colors.lightBackground,
   },
   tabBarDarkStyle: {
-    backgroundColor: "black",
+    backgroundColor: Colors.darkBackground,
   },
 });

@@ -40,7 +40,7 @@ export const FavouritesProvider = (props: FavouritesProps) => {
       .finally(() => setLoading(false));
   }, []);
 
-  const toggle = (id: number): void => {
+  const toggle = (id: number) => {
     toggleFavourite(id).then(setFavourites).catch(console.log);
   };
 

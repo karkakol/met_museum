@@ -1,11 +1,10 @@
 import { useColorScheme, View, StyleSheet, Dimensions } from "react-native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Image } from "expo-image";
-import { useMemo } from "react";
 
 import { MOCK_IMAGE } from "../constans";
 import type { MainRootStackParamList } from "../App";
-import { darkBackground, lightBackground } from "../colors";
+import { Colors } from "../colors";
 
 type Props = NativeStackScreenProps<MainRootStackParamList, "DetailedMuseum">;
 
@@ -13,13 +12,10 @@ export default function DetailedMuseumScreen({ route }: Props) {
   const colorScheme = useColorScheme();
 
   const museum = route.params.museum;
-  const imageUrl = useMemo(
-    () =>
-      museum.primaryImageSmall.trim().length === 0
-        ? MOCK_IMAGE
-        : museum.primaryImageSmall,
-    [],
-  );
+  const imageUrl =
+    museum.primaryImageSmall.trim().length === 0
+      ? MOCK_IMAGE
+      : museum.primaryImageSmall;
 
   const containerColors =
     colorScheme === "light" ? styles.containerLight : styles.containerDark;
@@ -41,10 +37,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   containerLight: {
-    backgroundColor: lightBackground,
+    backgroundColor: Colors.lightBackground,
   },
   containerDark: {
-    backgroundColor: darkBackground,
+    backgroundColor: Colors.darkBackground,
   },
   image: {
     width: screenWidth - 40,

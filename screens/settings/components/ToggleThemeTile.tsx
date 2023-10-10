@@ -9,14 +9,7 @@ import {
 import { useCallback } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import {
-  darkHighlight,
-  darkSurface,
-  darkText,
-  lightHighlight,
-  lightSurface,
-  lightText,
-} from "../../../colors";
+import { Colors } from "../../../colors";
 
 import setColorScheme = Appearance.setColorScheme;
 
@@ -38,9 +31,10 @@ export function ToggleThemeTile() {
   const label =
     colorScheme === "light" ? "Enable dark mode" : "Enable light mode";
 
-  const iconColor = colorScheme === "light" ? lightText : darkText;
+  const iconColor =
+    colorScheme === "light" ? Colors.lightText : Colors.darkText;
   const highlightColor =
-    colorScheme === "light" ? lightHighlight : darkHighlight;
+    colorScheme === "light" ? Colors.lightHighlight : Colors.darkHighlight;
   return (
     <TouchableHighlight
       onPress={toggleColorScheme}
@@ -68,18 +62,18 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   containerLightColors: {
-    backgroundColor: lightSurface,
+    backgroundColor: Colors.lightSurface,
   },
   containerDarkColors: {
-    backgroundColor: darkSurface,
+    backgroundColor: Colors.darkSurface,
   },
   labelLayout: {
     fontSize: 20,
   },
   labelLightColors: {
-    color: lightText,
+    color: Colors.lightText,
   },
   labelDarkColors: {
-    color: darkText,
+    color: Colors.darkText,
   },
 });
