@@ -5,7 +5,6 @@ import type MuseumsResponse from "../model/MuseumsResponse";
 export default function useAllIds(search: string): Action<number[]> {
   const [inProgress, setInProgress] = useState(true);
   const [museumResponse, setMuseumResponse] = useState<MuseumsResponse>();
-
   const fetchMuseumsIds = useCallback(() => {
     const baseLink =
       "https://collectionapi.metmuseum.org/public/collection/v1/objects";
@@ -21,9 +20,14 @@ export default function useAllIds(search: string): Action<number[]> {
       .finally(() => {
         setInProgress(false);
       });
-  }, [search, setMuseumResponse, setInProgress]);
+    console.log(search);
+  }, [search]);
 
-  useEffect(fetchMuseumsIds, [fetchMuseumsIds]);
+  useEffect(() => {
+    console.log("ELLLO");
+  }, []);
+
+  useEffect(fetchMuseumsIds, []);
 
   return {
     inProgress,

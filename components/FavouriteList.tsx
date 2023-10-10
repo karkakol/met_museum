@@ -7,11 +7,13 @@ import { getFavourites, toggle } from "../async_storage/LocalStorage";
 import MuseumTile from "./MuseumTile";
 
 export default function FavouriteList() {
-  const [favIds, setFavIds] = useState<number[]>();
+  const [favIds, setFavIds] = useState<number[]>([]);
+
+  const focused = useIsFocused();
 
   useEffect(() => {
     getFavourites().then(setFavIds).catch(console.log);
-  }, [useIsFocused()]);
+  }, [focused]);
 
   function onTileTap(value: number) {
     toggle(value)
@@ -29,7 +31,7 @@ export default function FavouriteList() {
           onTap={() => {
             onTileTap(item);
           }}
-          selected={favIds?.includes(item) ?? false}
+          selected={favIds.includes(item)}
         />
       </TouchableOpacity>
     );

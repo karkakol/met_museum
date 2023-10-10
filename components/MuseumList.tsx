@@ -4,6 +4,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 import useAllIds from "../api/useAllIds";
 import { getFavourites, toggle } from "../async_storage/LocalStorage";
+import { useDebounce } from "../hooks/useDebounce";
 
 import MuseumTile from "./MuseumTile";
 
@@ -12,10 +13,11 @@ interface MuseumListProps {
 }
 export default function MuseumList(props: MuseumListProps) {
   const idsAction = useAllIds(props.search ?? "");
+  const debounsedSearch = useDebounce(props.search, 500);
 
   useEffect(() => {
     idsAction.retry();
-  }, [props.search]);
+  }, [debounsedSearch]);
 
   const focused = useIsFocused();
   const [favIds, setFavIds] = useState<number[]>([]);
@@ -52,7 +54,7 @@ export default function MuseumList(props: MuseumListProps) {
           onTap={() => {
             onTileTap(item);
           }}
-          selected={favIds.includes(item) ?? false}
+          selected={favIds.includes(item)}
         />
       </TouchableOpacity>
     );

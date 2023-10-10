@@ -4,10 +4,8 @@ const FAVOURITE_KEY = "Favourite";
 
 export async function getFavourites(): Promise<number[]> {
   try {
-    const raw = await AsyncStorage.getItem(FAVOURITE_KEY);
-    if ((raw?.trim().length ?? 0) === 0) return [];
-
-    return JSON.parse(raw!) as number[];
+    const value = await AsyncStorage.getItem(FAVOURITE_KEY);
+    return value ? (JSON.parse(value) as Array<number>) : [];
   } catch (e) {
     console.log(e);
   }
