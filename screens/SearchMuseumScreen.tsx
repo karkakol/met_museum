@@ -1,21 +1,27 @@
-import { TextInput, View, StyleSheet } from "react-native";
+import { TextInput, View, StyleSheet, useColorScheme } from "react-native";
 import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 import MuseumList from "../components/MuseumList";
+import { getAppStyles } from "../utils/styles";
 
 export default function SearchMuseumScreen() {
+  const colorScheme = useColorScheme();
+  const { textStyle, backgroundStyle, surfaceStyle } =
+    getAppStyles(colorScheme);
+  // const { = } = getAppColors(colorScheme);
+
   const [search, setSearch] = useState("");
 
   return (
-    <View>
-      <View style={styles.inputWrapper}>
+    <View style={[styles.containerLayout, backgroundStyle]}>
+      <View style={[styles.searchBar, surfaceStyle]}>
         <TextInput
           onChangeText={setSearch}
           value={search}
-          style={styles.input}
+          style={[styles.inputLayout, textStyle]}
         />
-        <Ionicons name="search" style={styles.searchIcon} />
+        <Ionicons name="search" size={24} style={textStyle} />
       </View>
 
       <MuseumList search={search} />
@@ -24,18 +30,22 @@ export default function SearchMuseumScreen() {
 }
 
 const styles = StyleSheet.create({
-  inputWrapper: {
+  containerLayout: {
+    paddingVertical: 4,
+  },
+  searchBar: {
     display: "flex",
     flexDirection: "row",
-    backgroundColor: "white",
-    padding: 10,
-    elevation: 2,
+    fontSize: 24,
+    paddingVertical: 4,
+    paddingLeft: 12,
+    paddingRight: 8,
+    borderRadius: 8,
+    marginHorizontal: 12,
+    marginVertical: 4,
   },
-  input: {
+  inputLayout: {
     flex: 1,
-    fontSize: 20,
-  },
-  searchIcon: {
-    fontSize: 20,
+    fontSize: 24,
   },
 });

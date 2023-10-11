@@ -1,66 +1,49 @@
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import { useEffect, useState } from "react";
-import { useIsFocused } from "@react-navigation/native";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  useColorScheme,
+  View,
+} from "react-native";
+import { useContext } from "react";
 
-import useAllIds from "../api/useAllIds";
-import { getFavourites, toggle } from "../async_storage/LocalStorage";
 import { useDebounce } from "../hooks/useDebounce";
+import useAllIds from "../api/useAllIds";
+import { FavouritesContext } from "../providers/FavouritesProvider";
+import { getAppStyles } from "../utils/styles";
 
 import MuseumTile from "./MuseumTile";
 
 interface MuseumListProps {
   search: string | undefined;
 }
+
 export default function MuseumList(props: MuseumListProps) {
-  const debounsedSearch = useDebounce(props.search, 500);
-  const idsAction = useAllIds(debounsedSearch ?? "");
+  const colorScheme = useColorScheme();
+  const debouncedSearch = useDebounce(props.search, 500);
 
-  const focused = useIsFocused();
-  const [favIds, setFavIds] = useState<number[]>([]);
-
-  useEffect(() => {
-    getFavourites()
-      .then((ids) => {
-        setFavIds(ids);
-      })
-      .catch(console.log);
-  }, []);
-
-  useEffect(() => {
-    getFavourites()
-      .then((ids) => {
-        setFavIds(ids);
-      })
-      .catch(console.log);
-  }, [focused]);
-
-  function onTileTap(value: number) {
-    toggle(value)
-      .then((ids) => {
-        setFavIds(ids);
-      })
-      .catch(console.log);
-  }
+  const favouriteContext = useContext(FavouritesContext);
+  const idsAction = useAllIds(debouncedSearch ?? "");
 
   const renderItem = ({ item }: { item: number }) => {
     return (
-      <TouchableOpacity>
-        <MuseumTile
-          id={item}
-          onTap={() => {
-            onTileTap(item);
-          }}
-          selected={favIds.includes(item)}
-        />
-      </TouchableOpacity>
+      <MuseumTile
+        id={item}
+        onFavouriteTap={() => favouriteContext.toggle(item)}
+        selected={favouriteContext.selected(item)}
+      />
     );
   };
+
+  const { backgroundStyle } = getAppStyles(colorScheme);
+
   return (
-    <View>
+    <View style={[styles.containerLayout, backgroundStyle]}>
       {idsAction.inProgress ? (
-        <Text>Loading</Text>
+        <ActivityIndicator style={styles.loadingLayout} size="large" />
       ) : (
         <FlatList<number>
+          style={styles.listLayout}
           data={idsAction.data}
           renderItem={renderItem}
           keyExtractor={(item) => item.toString()}
@@ -69,3 +52,18 @@ export default function MuseumList(props: MuseumListProps) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  containerLayout: {
+    height: "100%",
+  },
+  listLayout: {
+    paddingVertical: 8,
+    paddingHorizontal: 8,
+  },
+  loadingLayout: {
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+  },
+});

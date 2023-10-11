@@ -1,33 +1,59 @@
-import { NavigationContainer } from '@react-navigation/native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import AllMuseumsScreen from './screens/AllMuseumsScreen'
-import SearchMuseumScreen from './screens/SearchMuseumScreen'
-import FavouriteMuseumsScreen from './screens/FavouriteMuseumsScreen'
-import React from 'react'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import { Fontisto } from '@expo/vector-icons'
+import {
+  NavigationContainer,
+  type NavigationProp,
+} from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StyleSheet, useColorScheme } from "react-native";
 
-const Tab = createBottomTabNavigator()
-export default function App () {
+import { FavouritesProvider } from "./providers/FavouritesProvider";
+import HomeScreen from "./screens/HomeScreen";
+import DetailedMuseumScreen from "./screens/DetailedMuseumScreen";
+import type Museum from "./model/Museum";
+import { Colors, getAppColors } from "./utils/colors";
+import { getAppStyles } from "./utils/styles";
+
+export type MainRootStackParamList = {
+  Home: undefined;
+  DetailedMuseum: { museum: Museum };
+};
+
+export type MainStackNavigation = NavigationProp<MainRootStackParamList>;
+
+const Stack = createNativeStackNavigator<MainRootStackParamList>();
+
+export default function App() {
   return (
-        <NavigationContainer>
-            <MyTabs/>
-        </NavigationContainer>
-  )
+    <FavouritesProvider>
+      <MainNavigator />
+    </FavouritesProvider>
+  );
 }
 
-function MyTabs () {
+function MainNavigator() {
+  const colorScheme = useColorScheme();
+  const { backgroundStyle } = getAppStyles(colorScheme);
+  const { backgroundColor, headerColor } = getAppColors(colorScheme);
+
   return (
-        <Tab.Navigator>
-            <Tab.Screen name="All" component={AllMuseumsScreen}
-                        options={{ tabBarIcon: ({ color }) => <Ionicons name="home" size={20} color={color}/> }}
-            />
-            <Tab.Screen name="Search" component={SearchMuseumScreen}
-                        options={{ tabBarIcon: ({ color }) => <Ionicons name="search" size={20} color={color}/> }}
-            />
-            <Tab.Screen name="Favourite" component={FavouriteMuseumsScreen}
-                        options={{ tabBarIcon: ({ color }) => <Fontisto name="favorite" size={20} color={color}/> }}
-            />
-        </Tab.Navigator>
-  )
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={() => ({
+          tabBarStyle: backgroundStyle,
+          headerStyle: { backgroundColor: backgroundColor },
+          headerTintColor: headerColor,
+        })}
+      >
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="DetailedMuseum"
+          component={DetailedMuseumScreen}
+          options={({ route }) => ({ title: route.params.museum.title })}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }

@@ -20,7 +20,7 @@ export async function setFavourites(elements: number[]): Promise<void> {
   }
 }
 
-export async function toggle(id: number): Promise<number[]> {
+export async function toggleFavourite(id: number): Promise<Array<number>> {
   const fav = await getFavourites();
   if (fav.includes(id)) {
     const newFav = fav.filter((e) => e !== id);
