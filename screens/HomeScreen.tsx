@@ -1,13 +1,10 @@
 import React from "react";
-import {
-  type BottomTabNavigationOptions,
-  createBottomTabNavigator,
-} from "@react-navigation/bottom-tabs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Fontisto } from "@expo/vector-icons";
 import { useColorScheme } from "react-native";
 
-import { Colors, getAppColors } from "../utils/colors";
+import { getAppColors } from "../utils/colors";
 import { getAppStyles } from "../utils/styles";
 
 import SettingsScreen from "./settings/SettingsScreen";
@@ -33,55 +30,39 @@ export default function HomeScreen() {
       <Tab.Screen
         name="All"
         component={AllMuseumsScreen}
-        options={homeIcon()}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="home" size={20} color={color} />
+          ),
+        }}
       />
       <Tab.Screen
         name="Search"
         component={SearchMuseumScreen}
-        options={searchIcon()}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="search" size={20} color={color} />
+          ),
+        }}
       />
       <Tab.Screen
         name="Favourite"
         component={FavouriteMuseumsScreen}
-        options={favouriteIcon()}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Fontisto name="favorite" size={20} color={color} />
+          ),
+        }}
       />
       <Tab.Screen
         name="Settings"
         component={SettingsScreen}
-        options={settingsIcon()}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="settings" size={24} color={color} />
+          ),
+        }}
       />
     </Tab.Navigator>
   );
 }
-
-const homeIcon = (): BottomTabNavigationOptions => {
-  return {
-    tabBarIcon: (props) => (
-      <Ionicons name="home" size={20} color={props.color} />
-    ),
-  };
-};
-
-const searchIcon = (): BottomTabNavigationOptions => {
-  return {
-    tabBarIcon: (props) => (
-      <Ionicons name="search" size={20} color={props.color} />
-    ),
-  };
-};
-
-const favouriteIcon = (): BottomTabNavigationOptions => {
-  return {
-    tabBarIcon: (props) => (
-      <Fontisto name="favorite" size={20} color={props.color} />
-    ),
-  };
-};
-
-const settingsIcon = (): BottomTabNavigationOptions => {
-  return {
-    tabBarIcon: (props) => (
-      <Ionicons name="settings" size={24} color={props.color} />
-    ),
-  };
-};
