@@ -11,9 +11,10 @@ import { useNavigation } from "@react-navigation/native";
 import { Image } from "expo-image";
 
 import type { MainStackNavigation } from "../App";
-import { MOCK_IMAGE } from "../constans";
-import { Colors } from "../colors";
+import { MOCK_IMAGE } from "../utils/constans";
+import { Colors, getAppColors } from "../utils/colors";
 import useGetMuseum from "../api/useGetMuseum";
+import { getAppStyles } from "../utils/styles";
 
 interface MuseumTileProps {
   id: number;
@@ -33,28 +34,18 @@ export default function MuseumTile(props: MuseumTileProps) {
     }
   };
 
-  const tileColorScheme =
-    colorScheme === "light"
-      ? styles.tileLightColorScheme
-      : styles.tileDarkColorScheme;
-  const labelColorScheme =
-    colorScheme === "light"
-      ? styles.labelLightColorScheme
-      : styles.labelDarkColorScheme;
+  const { textStyle, surfaceStyle } = getAppStyles(colorScheme);
+  const { highlightColor } = getAppColors(colorScheme);
 
-  const underlayColor =
-    colorScheme === "light" ? Colors.lightHighlight : Colors.darkHighlight;
   const iconButtonBackgroundColor =
     colorScheme === "light" ? Colors.lightSurface : Colors.darkSurface;
-  const highlightColor =
-    colorScheme === "light" ? Colors.lightHighlight : Colors.darkHighlight;
   return (
     <TouchableHighlight
       onPress={onTileTap}
       underlayColor={highlightColor}
       style={styles.touchableLayout}
     >
-      <View style={[styles.tileLayout, tileColorScheme]}>
+      <View style={[styles.tileLayout, surfaceStyle]}>
         <Image
           source={museumAction.data?.primaryImageSmall ?? MOCK_IMAGE}
           style={styles.image}
@@ -64,7 +55,7 @@ export default function MuseumTile(props: MuseumTileProps) {
         {museumAction.inProgress ? (
           <ActivityIndicator size="small" />
         ) : (
-          <Text style={[styles.labelLayout, labelColorScheme]}>
+          <Text style={[styles.labelLayout, textStyle]}>
             {museumAction.data?.title}
           </Text>
         )}
@@ -72,7 +63,7 @@ export default function MuseumTile(props: MuseumTileProps) {
           name={props.selected ? "heart" : "heart-o"}
           color="red"
           backgroundColor={iconButtonBackgroundColor}
-          underlayColor={underlayColor}
+          underlayColor={highlightColor}
           onPress={() => props.onFavouriteTap()}
         />
       </View>
@@ -94,21 +85,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderRadius: 12,
   },
-  tileLightColorScheme: {
-    backgroundColor: Colors.lightSurface,
-  },
-  tileDarkColorScheme: {
-    backgroundColor: Colors.darkSurface,
-  },
   labelLayout: {
     flexShrink: 1,
     paddingHorizontal: 12,
-  },
-  labelLightColorScheme: {
-    color: Colors.lightText,
-  },
-  labelDarkColorScheme: {
-    color: Colors.darkText,
   },
   image: {
     width: 50,

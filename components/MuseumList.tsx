@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { useDebounce } from "../hooks/useDebounce";
 import useAllIds from "../api/useAllIds";
 import { FavouritesContext } from "../providers/FavouritesProvider";
-import { Colors } from "../colors";
+import { getAppStyles } from "../utils/styles";
 
 import MuseumTile from "./MuseumTile";
 
@@ -34,11 +34,11 @@ export default function MuseumList(props: MuseumListProps) {
       />
     );
   };
-  const containerColors =
-    colorScheme === "light" ? styles.containerLight : styles.containerDark;
+
+  const { backgroundStyle } = getAppStyles(colorScheme);
 
   return (
-    <View style={[styles.containerLayout, containerColors]}>
+    <View style={[styles.containerLayout, backgroundStyle]}>
       {idsAction.inProgress ? (
         <ActivityIndicator style={styles.loadingLayout} size="large" />
       ) : (
@@ -65,11 +65,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: "100%",
-  },
-  containerLight: {
-    backgroundColor: Colors.lightBackground,
-  },
-  containerDark: {
-    backgroundColor: Colors.darkBackground,
   },
 });

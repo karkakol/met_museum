@@ -5,9 +5,10 @@ import {
 } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Fontisto } from "@expo/vector-icons";
-import { StyleSheet, useColorScheme } from "react-native";
+import { useColorScheme } from "react-native";
 
-import { Colors } from "../colors";
+import { Colors, getAppColors } from "../utils/colors";
+import { getAppStyles } from "../utils/styles";
 
 import SettingsScreen from "./settings/SettingsScreen";
 import FavouriteMuseumsScreen from "./FavouriteMuseumsScreen";
@@ -18,20 +19,15 @@ const Tab = createBottomTabNavigator();
 
 export default function HomeScreen() {
   const colorScheme = useColorScheme();
+  const { backgroundStyle } = getAppStyles(colorScheme);
+  const { headerColor } = getAppColors(colorScheme);
 
   return (
     <Tab.Navigator
       screenOptions={() => ({
-        tabBarStyle:
-          colorScheme === "light"
-            ? styles.tabBarLightStyle
-            : styles.tabBarDarkStyle,
-        headerStyle:
-          colorScheme === "light"
-            ? styles.tabBarLightStyle
-            : styles.tabBarDarkStyle,
-        headerTintColor:
-          colorScheme === "light" ? Colors.lightHeader : Colors.darkHeader,
+        tabBarStyle: backgroundStyle,
+        headerStyle: backgroundStyle,
+        headerTintColor: headerColor,
       })}
     >
       <Tab.Screen
@@ -89,12 +85,3 @@ const settingsIcon = (): BottomTabNavigationOptions => {
     ),
   };
 };
-
-const styles = StyleSheet.create({
-  tabBarLightStyle: {
-    backgroundColor: Colors.lightBackground,
-  },
-  tabBarDarkStyle: {
-    backgroundColor: Colors.darkBackground,
-  },
-});

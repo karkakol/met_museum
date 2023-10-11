@@ -9,7 +9,8 @@ import { FavouritesProvider } from "./providers/FavouritesProvider";
 import HomeScreen from "./screens/HomeScreen";
 import DetailedMuseumScreen from "./screens/DetailedMuseumScreen";
 import type Museum from "./model/Museum";
-import { Colors } from "./colors";
+import { Colors, getAppColors } from "./utils/colors";
+import { getAppStyles } from "./utils/styles";
 
 export type MainRootStackParamList = {
   Home: undefined;
@@ -30,21 +31,16 @@ export default function App() {
 
 function MainNavigator() {
   const colorScheme = useColorScheme();
+  const { backgroundStyle } = getAppStyles(colorScheme);
+  const { backgroundColor, headerColor } = getAppColors(colorScheme);
 
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={() => ({
-          tabBarStyle:
-            colorScheme === "light"
-              ? styles.tabBarLightStyle
-              : styles.tabBarDarkStyle,
-          headerStyle:
-            colorScheme === "light"
-              ? styles.tabBarLightStyle
-              : styles.tabBarDarkStyle,
-          headerTintColor:
-            colorScheme === "light" ? Colors.lightHeader : Colors.darkHeader,
+          tabBarStyle: backgroundStyle,
+          headerStyle: { backgroundColor: backgroundColor },
+          headerTintColor: headerColor,
         })}
       >
         <Stack.Screen
@@ -61,12 +57,3 @@ function MainNavigator() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  tabBarLightStyle: {
-    backgroundColor: Colors.lightBackground,
-  },
-  tabBarDarkStyle: {
-    backgroundColor: Colors.darkBackground,
-  },
-});

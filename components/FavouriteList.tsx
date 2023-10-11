@@ -8,7 +8,7 @@ import {
 import React, { useContext } from "react";
 
 import { FavouritesContext } from "../providers/FavouritesProvider";
-import { Colors } from "../colors";
+import { getAppStyles } from "../utils/styles";
 
 import MuseumTile from "./MuseumTile";
 
@@ -28,11 +28,10 @@ export default function FavouriteList() {
     );
   };
 
-  const containerColors =
-    colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
+  const { backgroundStyle } = getAppStyles(colorScheme);
 
   return (
-    <View style={[styles.containerLayout, containerColors]}>
+    <View style={[styles.containerLayout, backgroundStyle]}>
       <FlatList<number>
         style={styles.listLayout}
         data={favourites}
@@ -49,11 +48,5 @@ const styles = StyleSheet.create({
   },
   listLayout: {
     padding: 8,
-  },
-  lightContainer: {
-    backgroundColor: Colors.lightBackground,
-  },
-  darkContainer: {
-    backgroundColor: Colors.darkBackground,
   },
 });
